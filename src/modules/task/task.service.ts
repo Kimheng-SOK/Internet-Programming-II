@@ -1,39 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Task } from 'src/tasks/task.entity';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
-export class TaskService {
-  getTask(id: string) {
-    console.log(id);
-    return {
-      name: 'Task 1',
-      description: 'Description of Task 1',
-      createdAt: new Date().toISOString(),
-      completedAt: null,
-      userId: 1,
-    };
+export class TasksService {
+  constructor(
+    @InjectRepository(Task)
+    private readonly taskRepo: Repository<Task>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
+  ) {}
+
+  async findAll() {
+    return this.taskRepo.find({ relations: ['user'] });
   }
-  createTask(body: any) {
-    console.log(body);
-    return {
-      name: 'Task 1',
-      description: 'Description of Task 1',
-      createdAt: new Date().toISOString(),
-      completedAt: null,
-      userId: 1,
-    };
+
+  async findOne(id: number) {
+    return this.taskRepo.findOne({ where: { id }, relations: ['user'] });
   }
-  updateTask(id: string, body: any) {
-    console.log(body);
-    return {
-      name: 'Task 1',
-      description: 'Description of Task 1',
-      createdAt: new Date().toISOString(),
-      completedAt: null,
-      userId: 1,
-    };
+
+  async create(body: { name: string; description?: string; userId: number }) {
+    const user = await this.userRepo.findOne({ where: { id: body.userId } });
+    if (!user) throw new Error('User not found');
+    const task = this.taskRepo.create({
+      name: body.name,
+      description: body.description,
+      user,
+    });
+    return this.taskRepo.save(task);
   }
-  deleteTask(id: string) {
-    console.log(id);
+
+  async update(
+    id: number,
+    body: Partial<{ name: string; description: string; completedAt: Date }>,
+  ) {
+    await this.taskRepo.update(id, body);
+    return this.findOne(id);
+  }
+
+  async remove(id: number) {
+    await this.taskRepo.delete(id);
     return { message: 'success' };
   }
 }

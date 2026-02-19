@@ -7,33 +7,34 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { TaskService } from './task.service';
+import { TasksService } from './task.service';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(private readonly taskService: TasksService) {}
+
+  @Get('/')
+  findAll() {
+    return this.taskService.findAll();
+  }
 
   @Get('/:id')
-  getTask(@Param('id') id: string) {
-    return this.taskService.getTask(id);
+  findOne(@Param('id') id: string) {
+    return this.taskService.findOne(Number(id));
   }
+
   @Post('/')
-  createTask(@Body() body: any) {
-    return this.taskService.createTask(body);
+  create(@Body() body: any) {
+    return this.taskService.create(body);
   }
 
-  @Patch('/:id/done')
-  markTaskAsDone(@Body() body: any, @Param('id') id: string) {
-    return this.taskService.updateTask(id, body);
-  }
-
-  @Patch('/:id/pending')
-  markTaskAsPending(@Body() body: any, @Param('id') id: string) {
-    return this.taskService.updateTask(id, body);
+  @Patch('/:id')
+  update(@Param('id') id: string, @Body() body: any) {
+    return this.taskService.update(Number(id), body);
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id') id: string) {
-    return this.taskService.deleteTask(id);
+  remove(@Param('id') id: string) {
+    return this.taskService.remove(Number(id));
   }
 }

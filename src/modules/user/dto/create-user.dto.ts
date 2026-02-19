@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { IsString, Matches, MinLength } from 'class_validator';
+import { IsString, Matches, MinLength } from 'class-validator';
 
 export class createUserDto {
   @IsString({ message: 'ឈ្មោះត្រូវតែជាអក្សរ' })

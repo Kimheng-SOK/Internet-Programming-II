@@ -44,4 +44,9 @@ export class TasksService {
     await this.taskRepo.delete(id);
     return { message: 'success' };
   }
+
+  async clearAll() {
+    await this.taskRepo.clear();
+    return { message: 'success' };
+  }
 }

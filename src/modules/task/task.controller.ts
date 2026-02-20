@@ -37,4 +37,9 @@ export class TasksController {
   remove(@Param('id') id: string) {
     return this.taskService.remove(Number(id));
   }
+
+  @Delete('/')
+  clearAll() {
+    return this.taskService.clearAll();
+  }
 }

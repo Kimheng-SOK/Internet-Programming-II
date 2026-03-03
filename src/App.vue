@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <AddTodo @added="handleAddTodo" />
-    <h3>Pending Tasks:</h3>
+    <h3 v-if="nbOfPending > 0">Pending Tasks:</h3>
     <TodoLists status="pending" />
 
-    <h3>Completed Tasks:</h3>
+    <h3 v-if="nbOfTodo - nbOfPending > 0">Completed Tasks:</h3>
     <TodoLists status="completed" />
     <div class="pending-tasks">
       <span
-        >You have <span class="pending-num"> {{ nbOfTodo }} </span> tasks
+        >You have <span class="pending-num"> {{ nbOfPending }} </span> tasks
         pending.</span
       >
-      <button class="clear-button">Clear All</button>
+      <button class="clear-button" @click="clearAllTodos()">Clear All</button>
     </div>
   </div>
 </template>
@@ -36,12 +36,14 @@ export default {
   computed: {
     ...mapState(useTodoStore, {
       nbOfTodo: "countTodos",
+      nbOfPending: "countPending",
     }),
   },
   methods: {
     handleAddTodo(todo) {
       this.store.addTodo(todo);
     },
+
     clearAllTodos() {
       console.log("clear");
       this.store.clearAll();
@@ -50,5 +52,6 @@ export default {
 };
 </script>
 <style>
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
 @import "https://unicons.iconscout.com/release/v4.0.0/css/line.css";
 </style>

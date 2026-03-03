@@ -7,8 +7,17 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body {
-  background-color: #e3f2fd;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('../../public/image.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  transform: scale(1.03);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* For Scrollbar */
@@ -29,6 +38,11 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #aaa;
+}
+
+h3 {
+  color: #333;
+  margin-top: 25px;
 }
 
 .container {
@@ -139,7 +153,7 @@ textarea::-webkit-scrollbar {
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
-  pointer-events: none;
+  /* pointer-events: none; */
   white-space: nowrap;
   cursor: pointer;
 }

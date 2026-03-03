@@ -3,14 +3,14 @@
     <template v-if="status == 'completed'">
       <TodoItem
         v-for="todo of completedTasks"
-        icon="uil-adobe-alt"
+        icon="nf-fa-remove"
         :todo="todo"
       />
     </template>
     <template v-else>
       <TodoItem
         v-for="todo of pendingTasks"
-        icon="uil-adobe-alt"
+        icon="nf-fa-remove"
         :todo="todo"
       />
     </template>
@@ -58,13 +58,13 @@ export default {
       return [];
     },
   },
-  watch: {
-    todos: {
-      immediate: true,
-      handler: function (dataChanged) {
-        console.log("todos are changed");
-      },
-    },
-  },
+  // watch: {
+  //   todos: {
+  //     immediate: true,
+  //     handler: function (dataChanged) {
+  //       console.log("todos are changed");
+  //     },
+  //   },
+  // },
 };
 </script>

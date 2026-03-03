@@ -1,56 +1,78 @@
 import { defineStore } from "pinia";
 
+const API_URL = "http://localhost:3000/tasks";
+
 export const useTodoStore = defineStore("todo", {
   state: () => ({
     todos: [],
   }),
   getters: {
     countTodos: (state) => state.todos.length,
+    countPending: (state) => state.todos.filter(t => !t.completedAt).length,
   },
   actions: {
     async fetchTodos() {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve([
-            {
-              id: 1,
-              name: "Clean house",
-              description: "cleaning house in detail .....",
-              createdAt: "2024-15-07 07:50:00",
-              completedAt: null,
-            },
-            {
-              id: 2,
-              name: "Do homework",
-              description: "Instruction on doing homework ....",
-              createdAt: "2024-05-07 08:00:00",
-              completedAt: "2024-05-07 08:10:00",
-            },
-          ]);
-        }, 1000);
-      }).then((todos) => (this.todos = todos));
-    },
-    toggleStatus(id) {
-      const foundIndex = this.todos.findIndex((t) => t.id == id);
-      if (foundIndex >= 0) {
-        if (this.todos[foundIndex].completedAt != null) {
-          this.todos[foundIndex].completedAt = null;
-        } else {
-          this.todos[foundIndex].completedAt = new Date().toISOString();
-        }
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        this.todos = data;
+      } catch (error) {
+        console.error("Error fetching todos:", error);
       }
     },
-    addTodo(todo) {
-      this.todos.push({
-        id: this.todos.length + 1,
-        name: todo,
-        description: "description",
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-      });
-      this.todos = JSON.parse(JSON.stringify(this.todos));
+
+    async removeTodo(id) {
+      try {
+        await fetch(`${API_URL}/${id}`, {
+          method: "DELETE",
+        });
+        this.todos = this.todos.filter((t) => t.id != id);
+      } catch (error) {
+        console.error("Error removing task:", error);
+      }
     },
-    clearAll() {
+
+    async toggleStatus(id) {
+      const todo = this.todos.find((t) => t.id === id);
+      if (!todo) return;
+      try {
+        const res = await fetch(`${API_URL}/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            completedAt: todo.completedAt ? null : new Date().toISOString(),
+          }),
+        });
+        const updatedTodo = await res.json();
+        this.todos = this.todos.map((t) => (t.id === id ? updatedTodo : t));
+        // console.log("Toggled status for task with id:", id);
+        // console.log("Updated task:", updatedTodo);
+      } catch (error) {
+        console.error("Error toggling status:", error);
+      }
+    },
+
+    async addTodo(todo) {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: todo,
+          description: "description",
+        }),
+      });
+      const newTodo = await res.json();
+      this.todos.push(newTodo);
+    },
+
+    async clearAll() {
+      await fetch(`${API_URL}`, {
+        method: "DELETE",
+      });
       this.todos = [];
     },
   },

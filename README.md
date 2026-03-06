@@ -31,6 +31,10 @@
 $ npm install
 ```
 
+```bash
+$ cp .env .env.example
+```
+
 ## Compile and run the project
 
 ```bash

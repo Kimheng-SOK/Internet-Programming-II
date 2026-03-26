@@ -11,9 +11,9 @@ export class CreateReceiptDto {
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name?: string;
 
   @IsNumber()
   @Min(0)
-  price: number;
+  price?: number;
 }

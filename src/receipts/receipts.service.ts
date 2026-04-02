@@ -35,6 +35,7 @@ export class ReceiptService {
 
     this.notifications.notify('receipt_created', {
       receiptId: saved.receiptId,
+      name: saved.name,
       price: saved.price,
     });
 
@@ -52,6 +53,7 @@ export class ReceiptService {
 
     this.notifications.notify('receipt_updated', {
       receiptId: updated.receiptId,
+      name: updated.name,
       price: updated.price,
     });
 
@@ -61,6 +63,11 @@ export class ReceiptService {
   async remove(receiptId: string) {
     const receipt = await this.findOne(receiptId);
     await this.receiptRepo.remove(receipt);
+    this.notifications.notify('receipt_deleted', {
+      receiptId,
+      name: receipt.name,
+      price: receipt.price,
+    });
     return { delete: true, receiptId };
   }
 }

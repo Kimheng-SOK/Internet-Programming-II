@@ -3,12 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfig } from './config/database.config';
 import { ReceiptModule } from './receipts/receipts.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(databaseConfig),
     ReceiptModule,
+    OrdersModule,
     NotificationsModule,
   ],
+  providers: [],
 })
 export class AppModule {}

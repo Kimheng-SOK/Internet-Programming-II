@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+// import { OrdersService } from 'src/orders/orders.service';
 import { EVENT_PUBLISHER } from 'src/core/tokens';
-import { OrdersService } from 'src/orders/orders.service';
 
 type EventPublisher = (event: string, payload: any) => void;
 

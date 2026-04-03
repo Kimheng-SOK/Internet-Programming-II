@@ -1,7 +1,7 @@
-import { forwardRef, Module } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { CoreModule } from 'src/core/core.module';
-import { OrdersModule } from 'src/orders/orders.module';
+import { forwardRef, Module } from '@nestjs/common';
+// import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
   // Method 1: Use forwardRef to avoid circular dependency lazy injection

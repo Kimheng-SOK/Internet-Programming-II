@@ -27,11 +27,17 @@ type Query {
   orders: [OrderType!]!
   receipts: [ReceiptType!]!
   receipt(receiptId: String!): ReceiptType
+  receiptsByOrder(orderId: String!): [ReceiptType!]!
 }
 
 type Mutation {
-  createOrder(name: String!, price: Float!): OrderType!
+  createOrder(input: CreateOrderInput!): OrderType!
   createReceipt(input: CreateReceiptInput!): ReceiptType!
+}
+
+input CreateOrderInput {
+  name: String!
+  price: Float!
 }
 
 input CreateReceiptInput {

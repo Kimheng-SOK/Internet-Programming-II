@@ -11,6 +11,10 @@ export class CreateReceiptDto {
 
   @IsString()
   @IsNotEmpty()
+  orderId!: string;
+
+  @IsString()
+  @IsNotEmpty()
   name?: string;
 
   @IsNumber()

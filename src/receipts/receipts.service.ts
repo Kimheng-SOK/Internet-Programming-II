@@ -26,7 +26,8 @@ export class ReceiptService {
 
   async create(dto: CreateReceiptDto) {
     const receipt = this.receiptRepo.create({
-      issuedAt: new Date(dto.issuedAt),
+      issuedAt: dto.issuedAt ? new Date(dto.issuedAt) : new Date(),
+      orderId: dto.orderId,
       name: dto.name,
       price: dto.price,
     });
@@ -46,6 +47,7 @@ export class ReceiptService {
     const receipt = await this.findOne(receiptId);
 
     if (dto.issuedAt !== undefined) receipt.issuedAt = new Date(dto.issuedAt);
+    if (dto.orderId !== undefined) receipt.orderId = dto.orderId;
     if (dto.name !== undefined) receipt.name = dto.name;
     if (dto.price !== undefined) receipt.price = dto.price;
 

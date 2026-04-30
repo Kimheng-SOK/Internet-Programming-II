@@ -12,6 +12,9 @@ export class Receipt {
   @PrimaryGeneratedColumn('uuid')
   receiptId!: string;
 
+  @Column({ type: 'uuid', nullable: true })
+  orderId?: string;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   issuedAt!: Date;
 

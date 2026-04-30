@@ -1,0 +1,28 @@
+scalar DateTime
+
+type Order {
+  id: ID!
+  name: String!
+  price: Float!
+  createAt: DateTime!
+}
+
+type Receipt {
+  id: ID!
+  name: String!
+  price: Float!
+  orderId: ID!
+  order: Order!
+}
+
+type Query {
+  hello: String!
+  receipts: [Receipt!]!
+  orders: [Order!]!
+  receipt(id: ID!): Receipt
+}
+
+type Mutation {
+  createOrder(name: String!, price: Float!): Order!
+  createReceipt(name: String!, price: Float!, orderId: ID!): Receipt!
+}

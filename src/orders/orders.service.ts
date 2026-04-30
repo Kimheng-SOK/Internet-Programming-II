@@ -23,6 +23,10 @@ export class OrdersService {
     return this.orderRepo.find({ order: { createdAt: 'DESC' } });
   }
 
+  async findOne(id: string): Promise<Order | null> {
+    return this.orderRepo.findOne({ where: { orderId: id } });
+  }
+
   // create order
   createOrder(orderDto: CreateOrderDto) {
     const order = this.orderRepo.create({

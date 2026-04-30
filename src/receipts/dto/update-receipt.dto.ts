@@ -13,6 +13,10 @@ export class UpdateReceiptDto {
 
   @IsOptional()
   @IsString()
+  orderId?: string;
+
+  @IsOptional()
+  @IsString()
   name?: string;
 
   @IsOptional()

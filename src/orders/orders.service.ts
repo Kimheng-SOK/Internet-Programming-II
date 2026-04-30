@@ -14,6 +14,7 @@ export class OrdersService {
     @Inject('ORDERS_SERVICE') private client: ClientProxy,
     @InjectRepository(Order)
     private readonly orderRepo: Repository<Order>,
+
     @Inject(forwardRef(() => NotificationsService))
     private readonly notifications: NotificationsService,
   ) {}
@@ -35,9 +36,11 @@ export class OrdersService {
       order: orderDto,
       createdAt: new Date().toISOString(),
     });
+
     this.notifications.notify('order_created', {
       order: orderDto,
     });
+
     return { status: 'Order accepted', order: orderDto, savedOrder };
   }
 }

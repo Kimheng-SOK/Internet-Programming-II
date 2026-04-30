@@ -29,6 +29,17 @@ export class ReceiptCodeFirstResolver {
     return this.receiptService.findOne(receiptId);
   }
 
+  @Query(() => [ReceiptType], { name: 'receiptsByOrder' })
+  receiptsByOrder(@Args('orderId') orderId: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return this.receiptService.findByOrder(orderId);
+  }
+
+  //   @Mutation(() => ReceiptType)
+  //   createReceipt(@Args('input') input: CreateReceiptInput) {
+  //     return this.receiptService.create(input);
+  //   }
+
   @Mutation(() => ReceiptType)
   createReceipt(@Args('input') input: CreateReceiptInput) {
     return this.receiptService.create(input);

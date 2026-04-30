@@ -26,6 +26,11 @@ export class ReceiptResolver {
     return this.receiptService.findOne(receiptId);
   }
 
+  @Query('receiptByOrder')
+  receiptsByOrder(@Args('orderId') orderId: string) {
+    return this.receiptService.findByOrder(orderId);
+  }
+
   @Mutation('createReceipt')
   createReceipt(
     @Args('name') name: string,

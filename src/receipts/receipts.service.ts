@@ -24,6 +24,10 @@ export class ReceiptService {
     return receipt;
   }
 
+  async findByOrder(orderId: string) {
+    return this.receiptRepo.find({ where: { orderId } });
+  }
+
   async create(dto: CreateReceiptDto) {
     const receipt = this.receiptRepo.create({
       issuedAt: dto.issuedAt ? new Date(dto.issuedAt) : new Date(),

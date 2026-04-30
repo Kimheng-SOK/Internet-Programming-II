@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 export class CreateReceiptDto {
   @IsDateString()
-  issuedAt: string;
+  issuedAt?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -16,4 +16,8 @@ export class CreateReceiptDto {
   @IsNumber()
   @Min(0)
   price?: number;
+
+  @IsString()
+  @IsNotEmpty()
+  orderId?: string;
 }

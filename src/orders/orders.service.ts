@@ -22,14 +22,22 @@ export class OrdersService {
     return this.orderRepo.find({ order: { createdAt: 'DESC' } });
   }
 
+  // async findOne(orderId: string): Promise<Order | null> {
+  //   return this.orderRepo.findOne({ where: { orderId } });
+  // }
+
+  findOne(orderId: string) {
+    return this.orderRepo.findOne({ where: { orderId } });
+  }
+
   // create order
-  createOrder(orderDto: CreateOrderDto) {
+  async createOrder(orderDto: CreateOrderDto) {
     const order = this.orderRepo.create({
       name: orderDto.name,
       price: orderDto.price,
     });
 
-    const savedOrder = this.orderRepo.save(order);
+    const savedOrder = await this.orderRepo.save(order);
 
     // Method 1: Use forwardRef to avoid circular dependency lazy injection
     // this.notifications.notify('order_created', {
@@ -42,6 +50,7 @@ export class OrdersService {
       createdAt: new Date().toISOString(),
     });
 
-    return { status: 'Order accepted', order: orderDto, savedOrder };
+    // return { status: 'Order accepted', order: orderDto, savedOrder };
+    return savedOrder;
   }
 }

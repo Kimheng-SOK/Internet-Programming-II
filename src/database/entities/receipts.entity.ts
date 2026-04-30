@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Order } from './orders.entity';
 
 // type Receipt = {
 //   receiptId: string;
@@ -20,4 +27,11 @@ export class Receipt {
 
   @Column()
   price!: number;
+
+  @Column({ nullable: true })
+  orderId!: string; // ← FK column
+
+  @ManyToOne(() => Order)
+  @JoinColumn({ name: 'orderId' })
+  order?: Order;
 }

@@ -1,0 +1,26 @@
+type Order {
+  orderId: ID!
+  name: String!
+  price: Float!
+  createdAt: String!
+}
+
+type Receipt {
+  receiptId: ID!
+  issuedAt: String!
+  name: String!
+  price: Float!
+  orderId: ID!
+  order: Order
+}
+
+type Query {
+  orders: [Order!]!
+  receipts: [Receipt!]!
+  receipt(receiptId: ID!): Receipt
+}
+
+type Mutation {
+  createOrder(name: String!, price: Float!): Order!
+  createReceipt(name: String!, price: Float!, orderId: ID!): Receipt!
+}

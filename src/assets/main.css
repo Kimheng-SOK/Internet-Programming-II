@@ -316,6 +316,11 @@ textarea::-webkit-scrollbar {
     font-size: 0.85rem;
   }
 
+  .todoLists .list i {
+    display: inline-flex !important;
+    opacity: 1;
+  }
+
   h3 {
     margin-top: 15px;
     font-size: 1.1rem;

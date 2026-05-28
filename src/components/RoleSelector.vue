@@ -63,4 +63,35 @@ label {
   border-color: #007bff;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
+
+@media screen and (max-width: 480px) {
+  .role-selector {
+    gap: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  label {
+    font-size: 0.85rem;
+  }
+
+  .role-select {
+    flex: 1;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    font-size: 0.8rem;
+    min-height: 36px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .role-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .role-select {
+    width: 100%;
+  }
+}
 </style>

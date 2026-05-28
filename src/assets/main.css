@@ -160,8 +160,157 @@ textarea::-webkit-scrollbar {
 .clear-button:hover {
   background-color: #0e4bf1;
 }
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    width: 100%;
+    margin: 50px auto 0;
+    padding: 15px;
+    border-radius: 0;
+  }
+
+  .container .input-field {
+    height: 56px;
+  }
+
+  .input-field textarea {
+    font-size: 16px;
+    padding: 12px 40px 12px 12px;
+  }
+
+  .input-field .note-icon {
+    font-size: 20px;
+  }
+
+  .container .todoLists {
+    max-height: 50vh;
+  }
+
+  .todoLists .list {
+    padding: 12px 10px;
+    margin-top: 8px;
+  }
+
+  .todoLists .list .task {
+    margin: 0 15px 0 8px;
+    font-size: 0.95rem;
+  }
+
+  .todoLists .list input {
+    height: 18px;
+    min-width: 18px;
+  }
+
+  .pending-tasks {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .pending-tasks .clear-button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body::before {
+    filter: blur(5px);
+  }
+
+  .container {
+    margin: 40px auto 0;
+    padding: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .container .input-field {
+    height: 52px;
+  }
+
+  .input-field textarea {
+    font-size: 16px;
+    padding: 10px 35px 10px 10px;
+    border-radius: 6px;
+  }
+
+  .container .todoLists {
+    max-height: 55vh;
+  }
+
+  .todoLists .list {
+    padding: 10px 8px;
+    margin-top: 6px;
+    gap: 8px;
+  }
+
+  .todoLists .list input {
+    height: 20px;
+    min-width: 20px;
+  }
+
+  .todoLists .list .task {
+    margin: 0 10px 0 5px;
+    font-size: 0.9rem;
+  }
+
+  .todoLists .list i {
+    font-size: 18px;
+    right: 8px;
+  }
+
+  .pending-tasks {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pending-tasks span {
+    font-size: 0.9rem;
+  }
+
+  .pending-tasks .clear-button {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
 @media screen and (max-width: 350px) {
   .container {
-    padding: 25px 10px;
+    padding: 10px;
+    margin: 30px auto 0;
+  }
+
+  .container .input-field {
+    height: 48px;
+  }
+
+  .input-field textarea {
+    font-size: 15px;
+    padding: 8px 32px 8px 8px;
+  }
+
+  .input-field .note-icon {
+    font-size: 18px;
+    right: 10px;
+  }
+
+  .container .todoLists {
+    max-height: 60vh;
+    padding-right: 5px;
+  }
+
+  .todoLists .list {
+    padding: 8px 6px;
+  }
+
+  .todoLists .list .task {
+    margin: 0 8px 0 3px;
+    font-size: 0.85rem;
+  }
+
+  h3 {
+    margin-top: 15px;
+    font-size: 1.1rem;
   }
 }

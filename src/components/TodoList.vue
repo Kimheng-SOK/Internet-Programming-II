@@ -22,4 +22,18 @@ defineProps<{
   color: #999;
   font-style: italic;
 }
+
+@media screen and (max-width: 480px) {
+  .empty-state {
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .empty-state {
+    padding: 1rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
 </style>

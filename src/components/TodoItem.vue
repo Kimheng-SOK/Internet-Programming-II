@@ -25,10 +25,39 @@
   margin-left: auto;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
 }
 
 .delete-button:hover i {
   color: darkred;
+}
+
+/* Mobile: show delete button always */
+@media screen and (max-width: 768px) {
+  .delete-button {
+    opacity: 0.7;
+  }
+
+  .delete-button:active i {
+    color: darkred;
+    transform: scale(1.1);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .delete-button {
+    opacity: 1;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .delete-button i {
+    font-size: 18px;
+  }
 }
 </style>
 

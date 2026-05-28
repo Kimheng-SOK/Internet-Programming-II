@@ -78,6 +78,7 @@ function clearAllTodos() {
   gap: 1rem;
   margin: 1rem 0;
   border-bottom: 2px solid #e0e0e0;
+  flex-wrap: wrap;
 }
 
 .tab {
@@ -89,6 +90,7 @@ function clearAllTodos() {
   transition: all 0.2s;
   border-bottom: 3px solid transparent;
   color: #666;
+  white-space: nowrap;
 }
 
 .tab:hover {
@@ -99,5 +101,32 @@ function clearAllTodos() {
   color: #007bff;
   border-bottom-color: #007bff;
   font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-tabs {
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+
+  .tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .filter-tabs {
+    gap: 0.3rem;
+    margin: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .tab {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+    flex: 1;
+    text-align: center;
+  }
 }
 </style>

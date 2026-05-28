@@ -3,20 +3,14 @@ import { ref } from 'vue'
 import { apolloClient } from '@/apollo/client'
 import { GET_TODOS, ADD_TODO, TOGGLE_TODO, DELETE_TODO, TODOS_SUB } from '@/graphql/todos'
 import type { Todo } from '../types/todos.type'
+import { v4 as uuidv4 } from 'uuid'
 
-function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0
-    const v = c === 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
-}
-
+// Challenges 3
 function updateCacheAfterAdd(newTodo: Todo) {
   const cache = apolloClient.cache
   cache.modify({
     fields: {
-      todos(existingTodos: Todo[] = []) {
+      todos(existingTodos: Todo | any = []) {
         return [newTodo, ...existingTodos]
       },
     },
@@ -27,8 +21,8 @@ function updateCacheAfterDelete(todoId: string) {
   const cache = apolloClient.cache
   cache.modify({
     fields: {
-      todos(existingTodos: Todo[] = [], { READ }) {
-        return existingTodos.filter((todo) => READ(todo).id !== todoId)
+      todos(existingTodos: Todo | any = []) {
+        return existingTodos.filter((todo: Todo | any) => todo.id !== todoId)
       },
     },
   })
@@ -38,9 +32,9 @@ function updateCacheAfterToggle(todoId: string, isDone: boolean) {
   const cache = apolloClient.cache
   cache.modify({
     fields: {
-      todos(existingTodos: Todo[] = [], { READ }) {
-        return existingTodos.map((todo) => {
-          if (READ(todo).id === todoId) {
+      todos(existingTodos: Todo | any = []) {
+        return existingTodos.map((todo: Todo | any) => {
+          if (todo.id === todoId) {
             return { ...todo, is_done: isDone }
           }
           return todo
@@ -75,9 +69,8 @@ export const useTodoStore = defineStore('todo', () => {
     const clean = title.trim()
     if (!clean) return
 
-    const todoId = generateUUID()
     const optimisticTodo: Todo = {
-      id: todoId,
+      id: uuidv4(),
       title: clean,
       is_done: false,
       created_at: new Date().toISOString(),
@@ -112,8 +105,8 @@ export const useTodoStore = defineStore('todo', () => {
     const newValue = !originalValue
 
     const index = todos.value.findIndex((t) => t.id === todo.id)
-    if (index !== -1) {
-      todos.value[index].is_done = newValue
+    if (index !== -1 && todos.value[index]) {
+      todos.value[index]!.is_done = newValue
     }
 
     try {
@@ -123,8 +116,8 @@ export const useTodoStore = defineStore('todo', () => {
       })
       updateCacheAfterToggle(todo.id, newValue)
     } catch (e: any) {
-      if (index !== -1) {
-        todos.value[index].is_done = originalValue
+      if (index !== -1 && todos.value[index]) {
+        todos.value[index]!.is_done = originalValue
       }
       error.value = e.message ?? 'Failed to toggle todo'
     }

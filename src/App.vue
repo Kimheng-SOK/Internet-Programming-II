@@ -4,22 +4,13 @@
     <AddTodo @added="handleAddTodo" />
 
     <div class="filter-tabs">
-      <button
-        :class="['tab', { active: filter === 'all' }]"
-        @click="filter = 'all'"
-      >
+      <button :class="['tab', { active: filter === 'all' }]" @click="filter = 'all'">
         All ({{ todos.length }})
       </button>
-      <button
-        :class="['tab', { active: filter === 'active' }]"
-        @click="filter = 'active'"
-      >
+      <button :class="['tab', { active: filter === 'active' }]" @click="filter = 'active'">
         Active ({{ nbOfPending }})
       </button>
-      <button
-        :class="['tab', { active: filter === 'done' }]"
-        @click="filter = 'done'"
-      >
+      <button :class="['tab', { active: filter === 'done' }]" @click="filter = 'done'">
         Done ({{ nbOfCompleted }})
       </button>
     </div>
@@ -49,6 +40,7 @@ const filter = ref<'all' | 'active' | 'done'>('all')
 
 let stopRealtime: null | (() => void) = null
 
+// Challenge 2
 onMounted(async () => {
   await todoStore.fetchTodos()
   stopRealtime = todoStore.startRealtime()

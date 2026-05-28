@@ -3,4 +3,5 @@ export type Todo = {
   title: string
   is_done: boolean
   created_at: string
+  _typename?: string
 }

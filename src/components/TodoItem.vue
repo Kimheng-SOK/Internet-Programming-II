@@ -2,9 +2,35 @@
   <li class="list pending" @click="toggleStatus(todo)">
     <input type="checkbox" :checked="todo.is_done" />
     <span class="task">{{ todo.title }}</span>
-    <i class="nf" :class="icon" style="color: red" @click="removeTodo(todo.id)"></i>
+    <button class="delete-button" @click.stop="removeTodo(todo.id)">
+      <i class="nf" :class="icon" style="color: red"></i>
+    </button>
   </li>
 </template>
+
+<style scoped>
+.list {
+  position: relative;
+}
+
+.list:hover .delete-button {
+  opacity: 1;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.delete-button:hover i {
+  color: darkred;
+}
+</style>
 
 <script setup lang="ts">
 import { useTodoStore } from '../stores/todo.store'

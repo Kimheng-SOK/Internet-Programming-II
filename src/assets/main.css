@@ -1,14 +1,14 @@
 /* Google Fonts - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
   background-image: url('../../public/image.png');
@@ -202,6 +202,11 @@ textarea::-webkit-scrollbar {
     min-width: 18px;
   }
 
+  .todoLists .list i {
+    display: inline-flex !important;
+    opacity: 0.7;
+  }
+
   .pending-tasks {
     flex-direction: column;
     gap: 10px;
@@ -257,6 +262,8 @@ textarea::-webkit-scrollbar {
   .todoLists .list i {
     font-size: 18px;
     right: 8px;
+    display: inline-flex !important;
+    opacity: 1;
   }
 
   .pending-tasks {

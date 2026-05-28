@@ -1,30 +1,25 @@
 <template>
   <ul class="todoLists">
-    <template v-if="status == 'completed'">
-      <TodoItem v-for="todo of completedTasks" :key="todo.id" icon="nf-fa-remove" :todo="todo" />
-    </template>
-    <template v-else>
-      <TodoItem v-for="todo of pendingTasks" :key="todo.id" icon="nf-fa-remove" :todo="todo" />
-    </template>
+    <TodoItem v-for="todo of todos" :key="todo.id" icon="nf-fa-remove" :todo="todo" />
+    <li v-if="todos.length === 0" class="empty-state">No todos yet</li>
   </ul>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import TodoItem from './TodoItem.vue'
-import { useTodoStore } from '../stores/todo.store'
+import type { Todo } from '../types/todos.type'
 
-const props = defineProps<{ status: string }>()
-
-const todoStore = useTodoStore()
-const { todos } = storeToRefs(todoStore)
-
-onMounted(async () => {
-  await todoStore.fetchTodos()
-})
-
-const completedTasks = computed(() => todos.value?.filter((todo) => todo.is_done) ?? [])
-
-const pendingTasks = computed(() => todos.value?.filter((todo) => !todo.is_done) ?? [])
+defineProps<{
+  todos: Todo[]
+  filter?: string
+}>()
 </script>
+
+<style scoped>
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-style: italic;
+}
+</style>

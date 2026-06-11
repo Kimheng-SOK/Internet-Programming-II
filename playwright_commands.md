@@ -21,3 +21,10 @@ npx playwright test --headed --trace on
 ```
 npx playwright show-report
 ```
+
+## Command for running the challenge files
+
+````
+npx playwright test tests/challenges/challenge_file--headed --trace on
+```
+````
